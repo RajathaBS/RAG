@@ -99,7 +99,7 @@ python3 -m venv ragenv
 source ragenv/bin/activate
 
 # Windows
-ragenv\Scripts\activate
+rag\Scripts\activate
 
 Install Dependencies:
 pip install -r requirements.txt
@@ -116,15 +116,16 @@ Open your browser and visit:
 http://127.0.0.1:8000/docs
 
 Project Structure (Example)
-.
+RAG
 ├── app/
 │   ├── main.py
-│   ├── routes/
-│   ├── services/
-│   └── rag/
-├── data/
+│   ├── init.py
+├── doc_loader/
+│   ├── my_ducment.txt
 ├── requirements.txt
 ├── .env
+├── endpoints.py
+├── rag.py
 └── README.md
 
 Credits and Inspiration
