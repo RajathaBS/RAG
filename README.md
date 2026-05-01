@@ -1,48 +1,142 @@
 Building a RAG System with LangChain and FastAPI
+This project demonstrates how to build a Retrieval-Augmented Generation (RAG) system using LangChain and FastAPI. A RAG system enhances large language model responses by retrieving relevant information from external data sources before generating an answer.
 
-Key components
-When you’re building a RAG system, there are a few essential parts to get it up and running: document loaders, text splitting, indexing, retrieval models, and generative models. Let's break it down:
+What Is Retrieval-Augmented Generation (RAG)?
+RAG combines:
 
-Document loaders, text splitting, and indexing
-The first step is getting your data ready. That’s what document loaders, text splitting, and indexing do:
+Information retrieval (searching your own data)
+Text generation (language model responses)
 
-Document Loaders: These tools pull in data from various sources (text files, PDFs, databases…) They convert that info into a format the system can actually use. Basically, they make sure all the important data is ready and in the right shape for the next steps.
-Text Splitting: Once the data is loaded, it gets chopped into smaller chunks. This is super important because smaller pieces are easier to search through, and language models work better with bite-sized bits of info due to their processing limits.
-Indexing: After splitting, you need to organize the data. Indexing turns those text chunks into vector representations. This setup makes it easy and fast for the system to search through all that data and find what’s most relevant to a user’s query.
+This approach produces answers that are:
 
-Retrieval models
-These are the heart of the RAG system. They’re responsible for digging through all that indexed data to find what you need.
-
-Vector Stores: These are databases designed to handle those vector representations of the text chunks. They make searching super efficient by using a method called vector similarity search, which compares the query to the stored vectors and pulls the best matches.
-Retrievers: These components do the actual searching. They take the user’s query, convert it into a vector, and then search the vector store to find the most relevant data. Once they grab that info, it’s passed along to the next step: generation.
+More accurate
+More context-aware
+Grounded in your custom data
 
 
-Generative models
-Now, this is where the magic happens. Once the relevant data is retrieved, the generative models take over and produce a final response.
+Architecture Overview
+A typical RAG pipeline consists of the following components:
 
-Language Models: These models create the actual response, making sure it’s coherent and fits the context. In a RAG system, they take both the retrieved data and their own internal knowledge to generate a response that’s up-to-date and accurate.
-Contextual Response Generation: The generative model blends the user’s question with the retrieved data to create a response that not only answers the question but also reflects the specific details from the relevant info it pulled.
+Document Loaders
+Text Splitting
+Indexing (Embeddings)
+Retrieval
+Generation
 
-Setting Up the Development Environment
-Before building our RAG system, we need to make sure that our development environment is properly set up. Here’s what you’ll need:
 
-Python 3.10+: Make sure Python 3.10 or later is installed. You can check your Python version with the following command: python --version
-Virtual Environment: Next step is to use a virtual environment to keep your dependencies in one place. In order to do this, create a virtual environment in your project directory and activate it:
-python3 -m venv ragenv
-source ragenv/bin/activate   # For Linux/Mac
-ragenv\Scripts\activate      # For Windows
+Core Components
+Document Loaders
+Document loaders ingest data from multiple sources such as:
 
-Install Dependencies: Now, install the required packages using pip 
-pip install -r ./requirements.txt
+Text files
+PDFs
+Databases
 
-Set up OPEN_AI_API key and add it to .env file
+They convert raw data into a structured format that downstream components can process.
 
-Running the Server with Uvicorn : 
-uvicorn app.main:app --reload
+Text Splitting
+Loaded documents are split into smaller chunks. This improves:
 
-Once the server is running, open your browser and go to http://127.0.0.1:8000/docs. FastAPI automatically generates Swagger UI documentation for your API, so you can test it right from your browser!\
+Retrieval precision
+Model performance (due to context-length limits)
 
-Credits and Inspiration:
-Dr Ana Rojo-Echeburúa
-https://www.datacamp.com/tutorial/building-a-rag-system-with-langchain-and-fastapi?utm_cid=19589720830&utm_aid=157098107735&utm_campaign=230119_1-ps-other~dsa-tofu~tutorial_2-b2c_3-nam_4-prc_5-na_6-na_7-le_8-pdsh-go_9-nb-e_10-na_11-na&utm_loc=9001336-&utm_mtd=-c&utm_kw=&utm_source=google&utm_medium=paid_search&utm_content=ps-other~nam-en~dsa~tofu~tutorial~artificial-intelligence&gad_source=1&gad_campaignid=19589720830&gbraid=0AAAAADQ9WsEpqXiW4rKhUGDQxkLaE5F5-&gclid=CjwKCAjw-8vPBhBbEiwAoA39WrilW34Xm0KOyxoSYJkSOmRepx3AAoGR0UMILFA7LN8oBabCa9eo6hoCH7cQAvD_BwE
 
+Indexing
+Each text chunk is converted into a vector embedding and stored in a vector database. Indexing enables:
+
+Efficient similarity search
+Fast retrieval at query time
+
+
+Retrieval Models
+Vector Stores
+Vector stores are optimized databases for embeddings. They perform similarity searches to identify the most relevant chunks for a query.
+Retrievers
+Retrievers:
+
+Convert the user query into an embedding
+Search the vector store
+Return the most relevant chunks
+
+
+Generative Models
+The language model:
+
+Takes the retrieved context
+Combines it with the user’s question
+Generates a final, coherent response
+
+This allows answers to reflect both model knowledge and your private data.
+
+Setup Instructions
+Prerequisites
+
+Python 3.10 or later
+
+Check your version:
+Shellpython --version``Show more lines
+
+Create and Activate a Virtual Environment
+Shellpython3 -m venv ragenv# Linux / macOSsource ragenv/bin/activate# Windowsragenv\Scripts\activateShow more lines
+
+Install Dependencies
+Shellpip install -r requirements.txtShow more lines
+
+Environment Variables
+Create a .env file and add your OpenAI API key:
+Plain Textenv isn’t fully supported. Syntax highlighting is based on Plain Text.OPENAI_API_KEY=your_api_key_hereShow more lines
+
+Running the Application
+Start the FastAPI server:
+Shelluvicorn app.main:app --reloadShow more lines
+Open your browser and visit:
+http://127.0.0.1:8000/docs
+
+FastAPI automatically generates Swagger UI, which lets you test API endpoints interactively.
+
+Example API Usage
+
+The examples below assume a simple RAG API structure commonly used with FastAPI and LangChain.
+
+
+Health Check
+Request
+HTTPGET /``Show more lines
+Response
+JSON{  "status": "RAG API is running"}Show more lines
+
+Query the RAG System
+Endpoint
+JSONPOST /queryShow more lines
+Request Body
+JSON{  "question": "What is Retrieval-Augmented Generation?"}Show more lines
+Response
+JSON{  "answer": "Retrieval-Augmented Generation (RAG) is a technique that combines information retrieval with language model generation, allowing the model to answer questions using both retrieved documents and its internal knowledge."}Show more lines
+
+Optional: Upload Documents (If Supported)
+Endpoint
+HTTPPOST /documents/uploadShow more lines
+Request (multipart/form-data)
+
+file: PDF or text document
+
+Response
+JSON{  "message": "Document successfully indexed"}Show more lines
+
+Project Structure (Example)
+Plain Text.├── app/│   ├── main.py│   ├── routes/│   ├── services/│   └── rag/├── data/├── requirements.txt├── .env└── README.mdShow more lines
+
+Credits and Inspiration
+Inspired by the DataCamp tutorial by Dr. Ana Rojo‑Echeburúa:
+
+Building a RAG System with LangChain and FastAPI
+https://www.datacamp.com/tutorial/building-a-rag-system-with-langchain-and-fastapi
+
+
+Next Improvements (Optional)
+
+Add authentication
+Swap vector stores (FAISS, Chroma, Pinecone)
+Stream responses
+Add evaluation and logging
+Dockerize the application
