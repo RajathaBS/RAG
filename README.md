@@ -1,4 +1,4 @@
-Building a RAG System with LangChain and FastAPI: From Development to Production
+Building a RAG System with LangChain and FastAPI
 
 Key components
 When you’re building a RAG system, there are a few essential parts to get it up and running: document loaders, text splitting, indexing, retrieval models, and generative models. Let's break it down:
