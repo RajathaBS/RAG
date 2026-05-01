@@ -37,7 +37,12 @@ pip install -r ./requirements.txt
 
 Set up OPEN_AI_API key and add it to .env file
 
-Running the Server with Uvicorn
+Running the Server with Uvicorn : 
 uvicorn app.main:app --reload
 
-Once the server is running, open your browser and go to http://127.0.0.1:8000/docs. FastAPI automatically generates Swagger UI documentation for your API, so you can test it right from your browser!
+Once the server is running, open your browser and go to http://127.0.0.1:8000/docs. FastAPI automatically generates Swagger UI documentation for your API, so you can test it right from your browser!\
+
+Credits and Inspiration:
+Dr Ana Rojo-Echeburúa
+https://www.datacamp.com/tutorial/building-a-rag-system-with-langchain-and-fastapi?utm_cid=19589720830&utm_aid=157098107735&utm_campaign=230119_1-ps-other~dsa-tofu~tutorial_2-b2c_3-nam_4-prc_5-na_6-na_7-le_8-pdsh-go_9-nb-e_10-na_11-na&utm_loc=9001336-&utm_mtd=-c&utm_kw=&utm_source=google&utm_medium=paid_search&utm_content=ps-other~nam-en~dsa~tofu~tutorial~artificial-intelligence&gad_source=1&gad_campaignid=19589720830&gbraid=0AAAAADQ9WsEpqXiW4rKhUGDQxkLaE5F5-&gclid=CjwKCAjw-8vPBhBbEiwAoA39WrilW34Xm0KOyxoSYJkSOmRepx3AAoGR0UMILFA7LN8oBabCa9eo6hoCH7cQAvD_BwE
+
